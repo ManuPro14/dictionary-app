@@ -8,7 +8,7 @@ const Source = ({ wordData }: MeaningProps) => {
   const sourceUrl = wordData[0]?.sourceUrls?.[0];
 
   return (
-    <div className="flex flex-row gap-4 my-6 w-full text-gray-500 text-lg">
+    <div className="flex flex-row gap-4 px-4 my-6 w-full text-gray-500 text-lg">
       <h3 className="font-semibold">Source</h3>
       {sourceUrl && (
         <a
