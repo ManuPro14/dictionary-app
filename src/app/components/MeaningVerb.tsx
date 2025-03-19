@@ -12,7 +12,7 @@ interface MeaningProps {
 }
 
 export default function MeaningVerb({ wordData }: MeaningProps) {
-  if (!wordData) return null;
+  if (!wordData || wordData.length === 0) return null;
 
   const verbMeanings = wordData[0]?.meanings?.filter(
     (meaning: any) => meaning.partOfSpeech === "verb"
