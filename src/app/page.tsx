@@ -20,10 +20,10 @@ export default function Home() {
         <SearchBar onSearch={setWordData} showHistory={showHistory} onCloseHistory={() => setShowHistory(false)} />
       </div>
       <div className="w-full flex flex-col items-center justify-center">
-        <MeaningNoun wordData={wordData} />
-        <MeaningVerb wordData={wordData} />
+        <MeaningNoun wordData={wordData ?? []} />
+        <MeaningVerb wordData={wordData ?? []} />
       </div>
-      <Source wordData={wordData}/>
+      <Source wordData={wordData ?? undefined}/>
     </section>
   );
 }

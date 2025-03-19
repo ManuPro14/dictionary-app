@@ -1,11 +1,11 @@
 interface MeaningProps {
-  wordData: any;
+  wordData?: { sourceUrls?: string[] }[];
 }
 
 const Source = ({ wordData }: MeaningProps) => {
-  if (!wordData) return null;
+  if (!wordData || !wordData[0]?.sourceUrls) return null; 
 
-  const sourceUrl = wordData[0]?.sourceUrls?.[0];
+  const sourceUrl = wordData[0].sourceUrls?.[0];
 
   return (
     <div className="flex flex-row gap-4 px-4 my-6 w-full text-gray-500 text-lg">

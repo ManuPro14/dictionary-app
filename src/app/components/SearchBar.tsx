@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
-import { Search, Play, XCircle, Trash2 } from 'lucide-react';
+import { Search, Play, XCircle } from 'lucide-react';
 import { getWord } from '../services/api';
 
 interface SearchBarProps {
@@ -10,11 +10,16 @@ interface SearchBarProps {
   onCloseHistory: () => void;
 }
 
+interface Phonetic {
+  text?: string;
+  audio?: string;
+}
+
 export default function SearchBar({ onSearch, showHistory, onCloseHistory }: SearchBarProps) {
   const [word, setWord] = useState('');
   const [wordData, setWordData] = useState<any>(null);
   const [searchHistory, setSearchHistory] = useState<{ word: string; timestamp: string }[]>([]);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false); 
 
   useEffect(() => {
     const savedHistory = JSON.parse(localStorage.getItem('searchHistory') || '[]');
@@ -36,7 +41,7 @@ export default function SearchBar({ onSearch, showHistory, onCloseHistory }: Sea
 
       const newHistory = [
         { word, timestamp: new Date().toLocaleString() },
-        ...searchHistory.slice(0, 9) // Keep only last 10 searches
+        ...searchHistory.slice(0, 9) 
       ];
       setSearchHistory(newHistory);
       localStorage.setItem('searchHistory', JSON.stringify(newHistory));
@@ -58,8 +63,8 @@ export default function SearchBar({ onSearch, showHistory, onCloseHistory }: Sea
     localStorage.removeItem('searchHistory');
   };
 
-  const phoneticText = wordData?.[0]?.phonetics?.find((p: any) => p.text)?.text || '';
-  const phoneticAudio = wordData?.[0]?.phonetics?.find((p: any) => p.audio)?.audio || '';
+  const phoneticText = wordData?.[0]?.phonetics?.find((p: Phonetic) => p.text)?.text || '';
+  const phoneticAudio = wordData?.[0]?.phonetics?.find((p: Phonetic) => p.audio)?.audio || '';
 
   const playAudio = () => {
     if (phoneticAudio) {
@@ -108,7 +113,7 @@ export default function SearchBar({ onSearch, showHistory, onCloseHistory }: Sea
 
       {/* Search History Modal */}
       {showHistory && (
-        <div className="fixed inset-0  bg-opacity-50 backdrop-blur-xl flex items-center justify-center px-4">
+        <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-xl flex items-center justify-center px-4">
           <div className="bg-white dark:bg-black p-6 rounded-2xl shadow-2xl w-full max-w-md transition duration-300 transform scale-100">
             {/* Modal Header */}
             <div className="flex justify-between items-center border-b pb-2">
@@ -147,6 +152,23 @@ export default function SearchBar({ onSearch, showHistory, onCloseHistory }: Sea
                 </button>
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Error Modal (showModal) */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-lg flex items-center justify-center px-4">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-xl w-full max-w-sm">
+            <div className="flex justify-between items-center">
+              <h2 className="text-lg font-bold text-red-600 dark:text-red-400">Error</h2>
+              <button onClick={() => setShowModal(false)}>
+                <XCircle size={24} className="text-red-500 dark:text-red-400" />
+              </button>
+            </div>
+            <p className="mt-4 text-gray-800 dark:text-gray-300 text-sm md:text-base">
+              You need to enter a word before searching.
+            </p>
           </div>
         </div>
       )}

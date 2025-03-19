@@ -2,7 +2,13 @@ import React from 'react';
 import Divider from './Divider';
 
 interface MeaningProps {
-  wordData: any;
+  wordData: {
+    meanings?: { 
+      partOfSpeech: string; 
+      definitions: { definition: string; }[];
+      synonyms?: string[]; 
+    }[];
+  }[];
 }
 
 export default function MeaningVerb({ wordData }: MeaningProps) {

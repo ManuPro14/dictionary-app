@@ -2,7 +2,13 @@ import React from 'react';
 import Divider from './Divider';
 
 interface MeaningProps {
-  wordData: any;
+  wordData: {
+    meanings?: { 
+      partOfSpeech: string; 
+      definitions: { definition: string; }[];
+      synonyms?: string[]; 
+    }[];
+  }[];
 }
 
 export default function MeaningNoun({ wordData }: MeaningProps) {
@@ -26,10 +32,10 @@ export default function MeaningNoun({ wordData }: MeaningProps) {
             </ul>
           </div>
 
-          {nounMeanings[0]?.synonyms?.length > 0 && (
-            <div className='flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-4 justify-start w-full mt-4'>
-              <h3 className="mt-4 text-lg md:text-xl font-semibold">Synonyms:</h3>
-              <p className="text-purple-600 dark:text-purple-300 text-lg md:text-xl font-semibold">
+          {nounMeanings[0]?.synonyms && nounMeanings[0]?.synonyms.length > 0 && (
+            <div className='flex flex-row items-baseline gap-4 justify-start w-full mt-4 text-xl'>
+              <h3 className="mt-4 text-lg font-semibold">Synonyms</h3>
+              <p className="text-purple-600 dark:text-purple-300 text-lg font-semibold">
                 {nounMeanings[0]?.synonyms?.join(", ")}
               </p>
             </div>
