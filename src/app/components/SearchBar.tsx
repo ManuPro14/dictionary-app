@@ -113,18 +113,18 @@ export default function SearchBar({ onSearch, showHistory, onCloseHistory }: Sea
 
       {/* Search History Modal */}
       {showHistory && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-xl flex items-center justify-center px-4">
-          <div className="bg-white dark:bg-black p-6 rounded-2xl shadow-2xl w-full max-w-md transition duration-300 transform scale-100">
+        <div className="fixed inset-0  bg-opacity-50 backdrop-blur-xl flex items-center justify-center px-4">
+          <div className="bg-white dark:bg-black p-6 rounded-2xl shadow-2xl w-full max-w-xl transition duration-300 transform scale-100">
             {/* Modal Header */}
             <div className="flex justify-between items-center border-b pb-2">
-              <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-300">Search History</h2>
+              <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-200">Search History</h2>
               <button onClick={onCloseHistory} className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
-                <XCircle size={28} className="text-gray-600 dark:text-gray-300 cursor-pointer" />
+                <XCircle size={28} className="text-gray-600 dark:text-gray-200 cursor-pointer" />
               </button>
             </div>
 
             {/* Search History List */}
-            <ul className="mt-4 space-y-3 text-gray-700 dark:text-gray-300">
+            <ul className="mt-4 space-y-3 text-gray-700 dark:text-gray-200 text-xl">
               {searchHistory.length > 0 ? (
                 searchHistory.map((entry, index) => (
                   <li 
@@ -133,7 +133,7 @@ export default function SearchBar({ onSearch, showHistory, onCloseHistory }: Sea
                     onClick={() => { setWord(entry.word); onCloseHistory(); }}
                   >
                     <span className="font-medium">{entry.word}</span>
-                    <span className="text-sm text-gray-500 dark:text-gray-400">{entry.timestamp}</span>
+                    <span className="text-lg text-gray-500 dark:text-gray-200">{entry.timestamp}</span>
                   </li>
                 ))
               ) : (
